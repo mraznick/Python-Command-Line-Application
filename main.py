@@ -41,6 +41,10 @@ john.save()
 jane = Contact(first_name='Jane', last_name='Doe', phone_number='914-765-3398')
 jane.save()
 
+jerry = Contact(first_name='Jerry', last_name='Raznick',
+                phone_number='402-980-0020')
+jerry.save()
+
 
 ##
 # READ LOGIC
