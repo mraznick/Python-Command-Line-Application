@@ -5,6 +5,10 @@ db = PostgresqlDatabase('blackbook', user='mraznick', password='',
 
 db.connect()
 
+##
+# BASELINE AND SCHEMA
+##
+
 
 class BaseModel(Model):
     class Meta:
@@ -17,6 +21,10 @@ class Contact(BaseModel):
     phone_number = CharField()
 
 
+##
+# CREATE LOGIC
+##
+
 db.drop_tables([Contact])
 db.create_tables([Contact])
 
@@ -24,19 +32,40 @@ mitch = Contact(first_name='Mitch', last_name='Raznick',
                 phone_number=('402-980-4919'))
 mitch.save()
 
+
 john = Contact(first_name='John', last_name='Smith',
                phone_number=('402-474-9871'))
 john.save()
 
+
 jane = Contact(first_name='Jane', last_name='Doe', phone_number='914-765-3398')
 jane.save()
 
+
+##
+# READ LOGIC
+##
+
 all_contacts = Contact.select()
-print([contact.first_name and contact.last_name and contact.phone_number for contact in all_contacts])
+print([contact.first_name and
+       contact.last_name and
+       contact.phone_number for contact in all_contacts])
 
 first_contact = Contact.get(Contact.first_name == 'Mitch')
 print(first_contact.first_name)
 
+
+##
+# UPDATE LOGIC
+##
+
 first_contact.first_name = 'Mitchell'
 first_contact.save()
 print(first_contact.first_name)
+
+
+##
+# DELETE LOGIC
+##
+
+john.delete_instance()
